@@ -5,7 +5,9 @@ import {makeStyles} from "@material-ui/core/styles";
 const useStyles = makeStyles( {
     mood: {
         float: 'left',
-        margin: '2em 2em'
+        margin: '0.5em 0.2em',
+        cursor: 'pointer',
+        fontSize: '4em'
     }
 })
 
