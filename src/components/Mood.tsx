@@ -1,3 +1,4 @@
+import { Button, styled } from '@material-ui/core';
 import React from 'react';
 
 interface MoodsProps {
@@ -6,10 +7,12 @@ interface MoodsProps {
     className: any
 }
 
+const NonSelectable = styled(Button)({userSelect: 'none'})
+
 function Mood(props:MoodsProps) {
 
     return (
-        <div className={props.className} onClick={props.click}>{props.text}</div>
+        <NonSelectable className={props.className} onClick={props.click}>{props.text}</NonSelectable>
     )
 }
 
