@@ -8,7 +8,7 @@ interface MoodsProps {
 function Mood(props:MoodsProps) {
 
     return (
-        <div onClick={props.click}>{props.text}</div>
+        <div className="mood" onClick={props.click}>{props.text}</div>
     )
 }
 
