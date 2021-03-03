@@ -1,9 +1,14 @@
 import React from 'react';
 
+interface MoodsProps {
+    text: string
+    click?: () => void
+}
 
-function Mood(props:any) {
+function Mood(props:MoodsProps) {
+
     return (
-        <div>😁</div>
+        <div onClick={props.click}>{props.text}</div>
     )
 }
 
