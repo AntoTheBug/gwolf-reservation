@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Mood from '../components/Mood';
 import {makeStyles} from "@material-ui/core/styles";
 import MoodChart from '../components/MoodChart';
@@ -19,6 +19,8 @@ function MoodGrid() {
 
     const [counter, setCounter] = useState({})
 
+    useEffect(() => { window.localStorage.setItem('counter', JSON.stringify(counter))})
+
     function clickMood(mood: string) {
         const counter2: { [key: string]: number } = {...counter};
         counter2[mood] = (counter2[mood]?? 0) + 1
@@ -31,7 +33,7 @@ function MoodGrid() {
     return (
         <> 
             <div>
-                {moods.map(mood => <Mood className={classes.mood} text={mood} click={() => clickMood(mood) } />)}
+                {moods.map(mood => <Mood className={classes.mood} text={mood} key={mood} click={() => clickMood(mood) } />)}
             </div>
             <MoodChart {...counter}/>
         </>
