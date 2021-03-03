@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Mood from '../components/Mood';
 import {makeStyles} from "@material-ui/core/styles";
 
@@ -10,19 +10,24 @@ const useStyles = makeStyles( {
 })
 
 
-function MoodGrid(props:any) {
+function MoodGrid() {
 
-    function clickMood() {
-        alert('ciao')
+    const moods: string[] = ['😁', '😣', '🤬', '😵'];
+
+    const [counter, setCounter] = useState({})
+
+    function clickMood(mood: string) {
+        const counter2 = {...counter};
+        // @ts-ignore
+        counter2[mood] = (counter2[mood] ?? 0) + 1
+        setCounter(counter2)
     }
+
     const classes = useStyles();
 
     return (
         <div>
-            <Mood className={classes.mood} text='😁' click={clickMood} />
-            <Mood className={classes.mood} text='😣'/>
-            <Mood className={classes.mood} text='🤬'/>
-            <Mood className={classes.mood} text='😵'/>
+            {moods.map(mood => <Mood className={classes.mood} text={mood} click={() => clickMood(mood) } />)}
         </div>
     )
 };
