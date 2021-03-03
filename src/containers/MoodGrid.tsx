@@ -17,9 +17,8 @@ function MoodGrid() {
     const [counter, setCounter] = useState({})
 
     function clickMood(mood: string) {
-        const counter2 = {...counter};
-        // @ts-ignore
-        counter2[mood] = (counter2[mood] ?? 0) + 1
+        const counter2: { [key: string]: number } = {...counter};
+        counter2[mood] = (counter2[mood]?? 0) + 1
         setCounter(counter2)
     }
 
