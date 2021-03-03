@@ -1,8 +1,13 @@
 import React from 'react';
 
-function Bannerone(){
+
+interface BanneroneProps {
+    title: String
+}
+
+function Bannerone(props: BanneroneProps){
     return(
-        <h1>YoGa</h1>
+        <h1>{props.title}</h1>
     )
 }
 
