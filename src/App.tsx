@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Bannerone from "./components/Bannerone";
 import Bannerino from './components/Bannerino';
