@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Mood from '../components/Mood';
 import {makeStyles} from "@material-ui/core/styles";
+import MoodChart from '../components/MoodChart';
 
 const useStyles = makeStyles( {
     mood: {
@@ -26,10 +27,14 @@ function MoodGrid() {
 
     const classes = useStyles();
 
+    //<> is a nameless tag to call reactFragment, to create a fake root component in order to have a unique root in the tsx
     return (
-        <div>
-            {moods.map(mood => <Mood className={classes.mood} text={mood} click={() => clickMood(mood) } />)}
-        </div>
+        <> 
+            <div>
+                {moods.map(mood => <Mood className={classes.mood} text={mood} click={() => clickMood(mood) } />)}
+            </div>
+            <MoodChart {...counter}/>
+        </>
     )
 };
 
