@@ -2,6 +2,7 @@ import { Button, styled } from '@material-ui/core';
 import React from 'react';
 
 interface MoodsProps {
+    /** The smiley */
     text: string
     click?: () => void
     className: any
