@@ -8,11 +8,14 @@ interface MoodsProps {
 }
 
 const NonSelectable = styled(Button)({userSelect: 'none'})
+NonSelectable.displayName = 'Tot'
 
 function Mood(props:MoodsProps) {
 
     return (
-        <NonSelectable className={props.className} onClick={props.click}>{props.text}</NonSelectable>
+        <NonSelectable className={props.className} onClick={props.click}>
+            <div>{props.text}</div>
+        </NonSelectable>
     )
 }
 
