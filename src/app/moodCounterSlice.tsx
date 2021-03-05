@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export enum MoodEnum {
     Happy = '😁',
-    Sad = '😣',
+    Sad = '😭',
     Angry = '🤬',
     Confused = '😵',
 }
