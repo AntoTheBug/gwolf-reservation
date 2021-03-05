@@ -7,9 +7,9 @@ import MoodGrid from './containers/MoodGrid';
 function App() {
   return (
     <div className="App">
-      <Bannerone title="YoGa mood marbles"/>
-      <Bannerino title={""+new Date()} />
       <header className="App-header">
+        <Bannerone title="YoGa mood marbles"/>
+        <Bannerino title={new Date().toLocaleDateString() + " @ "+new Date().toLocaleTimeString()} />
         <MoodGrid/>
       </header>
     </div>

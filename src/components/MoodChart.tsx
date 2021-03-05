@@ -13,10 +13,10 @@ function MoodChart(props: MoodChartProps) {
                 data={[
                     {type: 'bar', x: Object.keys(props), y: Object.values(props)},
                 ]}
-                layout={ {width: 800, height: 400, title: 'A Mood Chart'} }
+                layout={ {width: 800, height: 400, title: "How's the mood?"} }
             />
             <pre>{JSON.stringify(props)}</pre>
         </>)
-};
+}
 
 export default MoodChart
