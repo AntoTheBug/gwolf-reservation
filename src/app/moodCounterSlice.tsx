@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export enum MoodEnum {
-    Happy = '😁',
     Sad = '😭',
-    Angry = '🤬',
     Confused = '😵',
+    Angry = '🤬',
+    Happy = '😁',
     Super = '🤩',
     Beer = '🍻'
 }
@@ -33,7 +33,7 @@ export const moodCounterSlice = createSlice({
         initialize: (state, action: PayloadAction<MoodCounters>) => {
             state.moodMap = {...initialMoodMap, ...action.payload}
         },
-        increment: (state, action: PayloadAction<{mood:MoodEnum,user:string}>) => {
+        increment: (state, action: PayloadAction<{ mood: MoodEnum, user: string }>) => {
             // Redux Toolkit allows us to write "mutating" logic in reducers. It
             // doesn't actually mutate the state because it uses the Immer library,
             // which detects changes to a "draft state" and produces a brand new
