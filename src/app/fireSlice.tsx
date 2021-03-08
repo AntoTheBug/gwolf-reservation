@@ -7,7 +7,7 @@ export const fireSlice = createSlice({
         today: [{}].slice(0, 0)
     },
     reducers: {
-        initialized: (state, action: PayloadAction<OneMood[]>) => {
+        initializeDetail: (state, action: PayloadAction<OneMood[]>) => {
             state.today = action.payload
         },
         read: (state) => {},
@@ -15,7 +15,7 @@ export const fireSlice = createSlice({
     },
 });
 
-export const { initialized, read, write } = fireSlice.actions;
+export const { initializeDetail, read, write } = fireSlice.actions;
 
 // @ts-ignore
 export const selectFirebase = state => state.firebase;

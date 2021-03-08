@@ -1,12 +1,12 @@
 import { all, put, takeEvery } from 'redux-saga/effects'
-import { initialized, OneMood, read, write } from '../app/fireSlice';
-import { increment, MoodEnum, Moods } from '../app/moodCounterSlice';
+import { initializeDetail, OneMood, read, write } from '../app/fireSlice';
+import { increment, initialize, decrement, MoodEnum, Moods } from '../app/moodCounterSlice';
 
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-
-type OneDoc = Promise<firebase.firestore.DocumentReference>;
+import useLocalUserId from '../hooks/useLocalUserId';
+import { PayloadAction } from '@reduxjs/toolkit';
 
 const firebaseConfig = {
     apiKey: 'AIzaSyBXNpTOw1rI6Qnx__T5fFVJHIOzU4mesIo',
@@ -18,6 +18,7 @@ const firebaseConfig = {
 };
 
 const today = () => new Date().toLocaleDateString('IT-it')
+
 const db = () => firebase.firestore();
 
 function* fireUpSaga(): Generator<any, void, any> {
@@ -40,26 +41,42 @@ function* workFireReadAsync(): Generator<any, void, any> {
         // @ts-ignore
         queryResult.forEach(doc => todayMoods.push(doc.data()))
 
+        const initMap: { [idx: string]: number } = {}
         for (const m of todayMoods) {
-            yield put(increment(m.mood as MoodEnum))
+            initMap[m.mood] = (initMap[m.mood] || 0) + 1
         }
 
-        yield put(initialized(todayMoods))
+        yield put(initialize(initMap))
+        yield put(initializeDetail(todayMoods))
     } catch (err) {
         console.log('Error in saga!:', err)
     }
 }
-//FIXME DAMIANO correggi questo
-function* workFireWriteAsync(): Generator<OneDoc, void, any> {
-    try {
-        const db = firebase.firestore();
 
-        const added = yield db.collection('moods').add({
+function* workFireWriteAsync(action: PayloadAction<{ mood: MoodEnum, user: string }>): Generator<any, void, any> {
+    try {
+        const {mood, user} = action.payload
+
+        const current = yield db().collection('moods')
+            .where('day', '==', today())
+            .where('user', '==', user)
+            .get();
+
+        const toDelete: firebase.firestore.DocumentReference[] = []
+        // @ts-ignore
+        current.forEach(d => toDelete.push(d.ref))
+        for (const doc of toDelete) {
+            yield doc.delete()
+        }
+
+        const added = yield db().collection('moods').add({
             day: today(),
-            mood: Object.values(Moods)[Math.floor(Math.random() * 4)],
-            user: ['Tim', 'Tom', 'Jim'][Math.floor(Math.random() * 3)]
+            mood,
+            user
         })
         console.log('ADDED!! ', added);
+
+        yield put(read())
     } catch (err) {
         console.log('Error in saga!:', err)
     }
@@ -70,7 +87,7 @@ function* watchFireReadAsync() {
 }
 
 function* watchFireWriteAsync() {
-    yield takeEvery(write.type, workFireWriteAsync)
+    yield takeEvery(increment.type, workFireWriteAsync)
 }
 
 export default function* rootSaga() {
