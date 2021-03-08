@@ -3,6 +3,7 @@ import { countup, prepare, selectTimer } from '../app/timerSlice';
 
 function* helloSaga() {
     console.log('Hello Sagas! - This runs just once.')
+    yield '👍'
 }
 
 const delay = (ms: number) => new Promise(res => setTimeout(res, ms))

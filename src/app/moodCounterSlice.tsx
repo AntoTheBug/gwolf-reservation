@@ -25,10 +25,10 @@ export const moodCounterSlice = createSlice({
             // doesn't actually mutate the state because it uses the Immer library,
             // which detects changes to a "draft state" and produces a brand new
             // immutable state based off those changes
-            state.moodMap[action.payload] += 1;
+            state.moodMap[action.payload] = +1 + (state.moodMap[action.payload] || 0);
         },
         decrement: (state, action: PayloadAction<MoodEnum>) => {
-            state.moodMap[action.payload] -= 1;
+            state.moodMap[action.payload] = -1 + (state.moodMap[action.payload] || 0);
         },
         clear: state => {
             // @ts-ignore
