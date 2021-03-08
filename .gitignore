@@ -100,3 +100,4 @@ fabric.properties
 
 # Sonar
 .idea/sonarlint/
+/.firebase/
