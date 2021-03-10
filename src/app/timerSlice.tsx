@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export const timerSlice = createSlice({
-    name: 'moodCounter',
+    name: 'timer',
     initialState: {
         timer: 0
     },
