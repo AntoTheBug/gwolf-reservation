@@ -11,7 +11,7 @@ function useLocalUserId() {
             setWhoami(newId);
             localStorage.setItem('who-am-i', newId)
         }
-    })
+    }, [whoami, localStorage])
 
     return whoami;
 }

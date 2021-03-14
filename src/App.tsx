@@ -1,4 +1,3 @@
-import React from 'react';
 import './App.css';
 import Bannerone from "./components/Bannerone";
 import Bannerino from './components/Bannerino';

@@ -1,11 +1,10 @@
 import { all, put, takeEvery } from 'redux-saga/effects'
-import { initializeDetail, OneMood, read, write } from '../app/fireSlice';
-import { increment, initialize, decrement, MoodEnum, Moods } from '../app/moodCounterSlice';
+import { initializeDetail, OneMood, read } from '../app/fireSlice';
+import { increment, initialize, MoodEnum } from '../app/moodCounterSlice';
 
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-import useLocalUserId from '../hooks/useLocalUserId';
 import { PayloadAction } from '@reduxjs/toolkit';
 
 const firebaseConfig = {
