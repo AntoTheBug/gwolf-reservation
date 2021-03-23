@@ -6,6 +6,8 @@ import { decrement, increment, MoodEnum, selectMoodMap } from '../app/moodCounte
 import { useDispatch, useSelector } from 'react-redux';
 import { prepare, selectTimer } from '../app/timerSlice';
 import useLocalUserId from '../hooks/useLocalUserId';
+import MoodHistory from '../components/MoodHistory';
+import { selectHistory } from '../app/fireSlice';
 
 const useStyles = makeStyles({
     mood: {
@@ -19,6 +21,8 @@ const useStyles = makeStyles({
 function MoodGrid() {
     const moodMap = useSelector(selectMoodMap).moodMap;
     const timer = useSelector(selectTimer).timer;
+    const history = useSelector(selectHistory)
+
     const dispatch = useDispatch();
     const user = useLocalUserId() || ''
 
@@ -31,7 +35,7 @@ function MoodGrid() {
         }
 
         // add new vote
-        dispatch(increment({mood: mood as MoodEnum, user }))
+        dispatch(increment({mood: mood as MoodEnum, user}))
 
         setLastClicked(mood)
 
@@ -58,7 +62,10 @@ function MoodGrid() {
                           click={() => clickMood(mood)}/>
                 )}
             </div>
-            <MoodChart {...moodMap}/>
+            <div style={{display: 'flex', flexWrap: 'wrap', width: '100%', justifyContent: 'space-evenly'}}>
+                <MoodChart {...moodMap}/>
+                <MoodHistory {...history} />
+            </div>
         </>
     )
 }
