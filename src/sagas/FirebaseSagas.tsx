@@ -1,6 +1,6 @@
-import { all, put, takeEvery } from 'redux-saga/effects'
-import { initializeDetail, OneMood, read } from '../app/fireSlice';
-import { increment, initialize, MoodEnum } from '../app/moodCounterSlice';
+import { all, call, put, takeEvery } from 'redux-saga/effects'
+import { initializeDetail, initializeHistory, OneMood, read } from '../app/fireSlice';
+import { increment, initialize, MoodCounters, MoodEnum } from '../app/moodCounterSlice';
 
 import firebase from 'firebase/app'
 import 'firebase/auth'
@@ -47,6 +47,28 @@ function* workFireReadAsync(): Generator<any, void, any> {
 
         yield put(initialize(initMap))
         yield put(initializeDetail(todayMoods))
+
+        yield call(workFireReadHistoryAsync);
+    } catch (err) {
+        console.log('Error in saga!:', err)
+    }
+}
+
+function* workFireReadHistoryAsync(): Generator<any, void, any> {
+    try {
+        const queryResult = yield db().collection('moods').get()
+
+        const allMoods: { [day: string]: MoodCounters } = {}
+
+        // @ts-ignore
+        queryResult.forEach(doc => {
+            const {day, mood}: OneMood = doc.data();
+            const dayCounters = allMoods[day] || {}
+            const dayMood = dayCounters[mood] || 0
+            dayCounters[mood] = dayMood + 1
+            allMoods[day] = dayCounters
+        })
+        yield put(initializeHistory(allMoods))
     } catch (err) {
         console.log('Error in saga!:', err)
     }

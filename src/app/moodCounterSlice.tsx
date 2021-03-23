@@ -9,7 +9,7 @@ export enum MoodEnum {
     Beer = '🍻'
 }
 
-interface MoodCounters {
+export interface MoodCounters {
     [idx: string]: number
 }
 
