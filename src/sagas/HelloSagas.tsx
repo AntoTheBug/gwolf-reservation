@@ -1,4 +1,4 @@
-import { all, put, select, takeEvery } from 'redux-saga/effects'
+import { all, put, select, takeLatest } from 'redux-saga/effects'
 import { countup, prepare, selectTimer } from 'app/timerSlice';
 
 function* helloSaga() {
@@ -21,10 +21,9 @@ function* workExampleAsync() {
     }
 }
 
-// Our watcher Saga: spawn a new incrementAsync task on each INCREMENT_ASYNC
+// Our watcher Saga: spawn a new task on each matching action
 function* watchExampleAsync() {
-    // FIXME with multiple calls, we will start multiple workers
-    yield takeEvery(prepare.type, workExampleAsync)
+    yield takeLatest(prepare.type, workExampleAsync)
 }
 
 export default function* rootSaga() {
