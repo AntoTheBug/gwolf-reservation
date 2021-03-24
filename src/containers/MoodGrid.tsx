@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import Mood from '../components/Mood';
+import Mood from 'components/Mood';
 import { makeStyles } from '@material-ui/core/styles';
-import MoodChart from '../components/MoodChart';
-import { decrement, increment, MoodEnum, selectMoodMap } from '../app/moodCounterSlice';
+import MoodChart from 'components/MoodChart';
+import { decrement, increment, MoodEnum, selectMoodMap } from 'app/moodCounterSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { prepare, selectTimer } from '../app/timerSlice';
-import useLocalUserId from '../hooks/useLocalUserId';
-import MoodHistory from '../components/MoodHistory';
-import { selectHistory } from '../app/fireSlice';
+import { prepare, selectTimer } from 'app/timerSlice';
+import useLocalUserId from 'hooks/useLocalUserId';
+import MoodHistory from 'components/MoodHistory';
+import { selectHistory } from 'app/fireSlice';
 
 const useStyles = makeStyles({
     mood: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 })
 
 function MoodGrid() {
-    const moodMap = useSelector(selectMoodMap).moodMap;
+    const moodMap = useSelector(selectMoodMap);
     const timer = useSelector(selectTimer).timer;
     const history = useSelector(selectHistory)
 
@@ -31,7 +31,7 @@ function MoodGrid() {
     function clickMood(mood: string) {
         // remove previous vote
         if (lastClicked) {
-            dispatch(decrement(lastClicked as MoodEnum))
+            dispatch(decrement({mood: lastClicked as MoodEnum}))
         }
 
         // add new vote

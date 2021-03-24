@@ -1,6 +1,6 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects'
-import { initializeDetail, initializeHistory, OneMood, read } from '../app/fireSlice';
-import { increment, initialize, MoodCounters, MoodEnum } from '../app/moodCounterSlice';
+import { initializeDetail, initializeHistory, OneMood, read } from 'app/fireSlice';
+import { increment, initialize, MoodCounters, MoodEnum } from 'app/moodCounterSlice';
 
 import firebase from 'firebase/app'
 import 'firebase/auth'

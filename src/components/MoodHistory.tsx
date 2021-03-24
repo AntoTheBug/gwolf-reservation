@@ -1,10 +1,9 @@
 import Plot from 'react-plotly.js';
-import { MoodCounters, MoodEnum, Moods } from '../app/moodCounterSlice';
+import { moodColors, MoodCounters, MoodEnum } from 'app/moodCounterSlice';
 
 interface MoodHistoryProps {
     [day: string]: MoodCounters
 }
-
 
 const parseDate = (dmy: string) => {
     const [d, m, y] = dmy.split('/').map(p => parseInt(p));
@@ -14,23 +13,21 @@ const parseDate = (dmy: string) => {
 const moodSign = (mood: string) =>
     [MoodEnum.Happy, MoodEnum.Super, MoodEnum.Beer].indexOf(mood as MoodEnum) >= 0 ? +1 : -1;
 
-const colors = {
-    '🍻': '#ffad05',
-    '🤩': '#0fa3b1',
-    '😁': '#88d18a',
-    '😵': 'hsla(0,0%,49%,0.5)',
-    '😭': 'hsla(209,59%,34%,0.5)',
-    '🤬': 'hsla(355,48%,50%,0.5)',
+const trace = (mood: string, history: { moods: MoodCounters; day: string }[]) => {
+    const absValues = history.map(date => date.moods[mood] || 0);
+    const yValues = absValues.map(v => v * moodSign(mood));
+    return ({
+        marker: {color: moodColors[mood as MoodEnum]},
+        x: history.map(date => date.day),
+        y: yValues,
+        text: absValues.map(value =>
+            value > 0 ? `<b>${value}</b> ${mood.repeat(value)}` : ''
+        ),
+        hoverinfo: 'text',
+        name: mood,
+        type: 'bar',
+    });
 }
-
-const trace = (mood: string, history: { moods: MoodCounters; day: string }[]) => ({
-    // @ts-ignore
-    marker: {color: colors[mood]},
-    x: history.map(p => p.day),
-    y: history.map(p => p.moods[mood] * moodSign(mood) || 0),
-    name: mood,
-    type: 'bar',
-})
 
 function MoodHistory(history: MoodHistoryProps) {
     const sortedDays = Object.keys(history)
@@ -39,13 +36,14 @@ function MoodHistory(history: MoodHistoryProps) {
     const sortedHistory = sortedDays
         .map(day => ({day, moods: history[day]}));
 
-    const traces = Object.values(Moods)
+    const traces = Object.keys(moodColors)
         .map(mood => trace(mood, sortedHistory))
 
     const layout = {
         xaxis: {title: 'Day'},
         yaxis: {title: 'Mood'},
         barmode: 'relative',
+        hovermode: 'x unified',
         width: 800, height: 400, title: 'How was the mood?'
     };
 

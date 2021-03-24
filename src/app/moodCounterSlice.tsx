@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from './store';
 
 export enum MoodEnum {
     Sad = '😭',
@@ -15,38 +16,43 @@ export interface MoodCounters {
 
 export const Moods: { [idx: string]: MoodEnum; } = MoodEnum;
 
+export const moodColors = {
+    [MoodEnum.Beer]: 'hsla(40,100%,51%,0.9)',
+    [MoodEnum.Super]: 'hsla(185,94%,38%,0.9)',
+    [MoodEnum.Happy]: 'hsla(122,74%,68%,0.9)',
+    [MoodEnum.Angry]: 'hsla(355,60%,60%,0.5)',
+    [MoodEnum.Confused]: 'hsla(0,0%,49%,0.5)',
+    [MoodEnum.Sad]: 'hsla(209,59%,34%,0.5)',
+}
+
 const initialMoodMap: MoodCounters = {
-    [MoodEnum.Happy]: 0,
     [MoodEnum.Sad]: 0,
-    [MoodEnum.Angry]: 0,
     [MoodEnum.Confused]: 0,
+    [MoodEnum.Angry]: 0,
+    [MoodEnum.Happy]: 0,
     [MoodEnum.Super]: 0,
     [MoodEnum.Beer]: 0,
 };
 
 export const moodCounterSlice = createSlice({
     name: 'moodCounter',
-    initialState: {
-        moodMap: initialMoodMap
-    },
+    initialState: initialMoodMap,
     reducers: {
         initialize: (state, action: PayloadAction<MoodCounters>) => {
-            state.moodMap = {...initialMoodMap, ...action.payload}
+            Object.assign(state, initialMoodMap, action.payload);
         },
-        increment: (state, action: PayloadAction<{ mood: MoodEnum, user: string }>) => {
+        increment: (state, {payload: {mood}}: PayloadAction<{ mood: MoodEnum, user: string }>) => {
             // Redux Toolkit allows us to write "mutating" logic in reducers. It
             // doesn't actually mutate the state because it uses the Immer library,
             // which detects changes to a "draft state" and produces a brand new
             // immutable state based off those changes
-            const {mood} = action.payload;
-            state.moodMap[mood] = +1 + (state.moodMap[mood] || 0);
+            state[mood] = +1 + (state[mood] || 0);
         },
-        decrement: (state, action: PayloadAction<MoodEnum>) => {
-            state.moodMap[action.payload] = -1 + (state.moodMap[action.payload] || 0);
+        decrement: (state, {payload: {mood}}: PayloadAction<{ mood: MoodEnum }>) => {
+            state[mood] = -1 + (state[mood] || 0);
         },
         clear: state => {
-            // @ts-ignore
-            Object.keys(state.moodMap).forEach(k => state.moodMap[k] = 0)
+            Object.keys(state).forEach(k => state[k] = 0)
         },
     },
 });
@@ -69,7 +75,7 @@ export const incrementAsync = amount => dispatch => {
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state) => state.counter.value)`
 
-// @ts-ignore
-export const selectMoodMap = state => state.moodMap;
+export const selectMoodMap = (state: RootState) => state.moodMap;
 
 export default moodCounterSlice.reducer;
+

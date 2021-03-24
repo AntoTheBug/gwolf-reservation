@@ -1,5 +1,5 @@
 import { all, put, select, takeEvery } from 'redux-saga/effects'
-import { countup, prepare, selectTimer } from '../app/timerSlice';
+import { countup, prepare, selectTimer } from 'app/timerSlice';
 
 function* helloSaga() {
     console.log('Hello Sagas! - This runs just once.')
