@@ -65,7 +65,6 @@ function* workFireReadHistoryAsync(): Generator<any, void, any> {
         // @ts-ignore
         queryResult.forEach(doc => {
             const data = doc.data();
-            console.log("DATA",data)
             const {newDay, mood}: OneMood = data;
             const dayCounters = allMoods[newDay] || {}
             const dayMood = dayCounters[mood] || 0
@@ -96,7 +95,6 @@ function* workFireWriteAsync(action: PayloadAction<{ mood: MoodEnum, user: strin
 
         const added = yield db().collection('moods').add({
             newDay: today(),
-            day: today(),
             mood,
             user
         })
