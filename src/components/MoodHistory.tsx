@@ -5,11 +5,6 @@ interface MoodHistoryProps {
     [day: string]: MoodCounters
 }
 
-const parseDate = (dmy: string) => {
-    const [d, m, y] = dmy.split('/').map(p => parseInt(p));
-    return +new Date(y, m + 1, d);
-}
-
 const moodSign = (mood: string) =>
     [MoodEnum.Happy, MoodEnum.Super, MoodEnum.Beer].indexOf(mood as MoodEnum) >= 0 ? +1 : -1;
 
@@ -23,7 +18,7 @@ const trace = (mood: string, history: { moods: MoodCounters; day: string }[]) =>
         text: absValues.map(value =>
             value > 0 ? `<b>${value}</b> ${mood.repeat(value)}` : ''
         ),
-        hoverinfo: 'text',
+        hoverinfo: 'x+text',
         name: mood,
         type: 'bar',
     });
@@ -31,7 +26,7 @@ const trace = (mood: string, history: { moods: MoodCounters; day: string }[]) =>
 
 function MoodHistory(history: MoodHistoryProps) {
     const sortedDays = Object.keys(history)
-        .sort((c, d) => parseDate(c) - parseDate(d));
+        .sort((c, d) => c.localeCompare(d));
 
     const sortedHistory = sortedDays
         .map(day => ({day, moods: history[day]}));

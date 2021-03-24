@@ -16,7 +16,10 @@ const firebaseConfig = {
     appId: '1:700826247687:web:0c61728ab4d6698916c0a2'
 };
 
-const today = () => new Date().toLocaleDateString('IT-it')
+const today = () => {
+    const d = new Date();
+    return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().split('T')[0];
+}
 
 const db = () => firebase.firestore();
 
@@ -33,7 +36,7 @@ function* fireUpSaga(): Generator<any, void, any> {
 
 function* workFireReadAsync(): Generator<any, void, any> {
     try {
-        const queryResult = yield db().collection('moods').where('day', '==', today()).get()
+        const queryResult = yield db().collection('moods').where('newDay', '==', today()).get()
 
         const todayMoods: OneMood[] = []
 
@@ -59,14 +62,15 @@ function* workFireReadHistoryAsync(): Generator<any, void, any> {
         const queryResult = yield db().collection('moods').get()
 
         const allMoods: { [day: string]: MoodCounters } = {}
-
         // @ts-ignore
         queryResult.forEach(doc => {
-            const {day, mood}: OneMood = doc.data();
-            const dayCounters = allMoods[day] || {}
+            const data = doc.data();
+            console.log("DATA",data)
+            const {newDay, mood}: OneMood = data;
+            const dayCounters = allMoods[newDay] || {}
             const dayMood = dayCounters[mood] || 0
             dayCounters[mood] = dayMood + 1
-            allMoods[day] = dayCounters
+            allMoods[newDay] = dayCounters
         })
         yield put(initializeHistory(allMoods))
     } catch (err) {
@@ -79,7 +83,7 @@ function* workFireWriteAsync(action: PayloadAction<{ mood: MoodEnum, user: strin
         const {mood, user} = action.payload
 
         const current = yield db().collection('moods')
-            .where('day', '==', today())
+            .where('newDay', '==', today())
             .where('user', '==', user)
             .get();
 
@@ -91,6 +95,7 @@ function* workFireWriteAsync(action: PayloadAction<{ mood: MoodEnum, user: strin
         }
 
         const added = yield db().collection('moods').add({
+            newDay: today(),
             day: today(),
             mood,
             user
@@ -115,6 +120,6 @@ export default function* rootSaga() {
     yield all([
         fireUpSaga(),
         watchFireReadAsync(),
-        watchFireWriteAsync(),
+        watchFireWriteAsync()
     ])
 }

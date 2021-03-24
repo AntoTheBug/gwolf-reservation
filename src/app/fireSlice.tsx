@@ -38,7 +38,7 @@ export const selectHistory = state => selectFirebase(state).history
 export default fireSlice.reducer;
 
 export interface OneMood {
-    day: string,
+    newDay: string,
     mood: string,
     user: string
 }

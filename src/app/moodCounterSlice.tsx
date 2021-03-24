@@ -17,12 +17,12 @@ export interface MoodCounters {
 export const Moods: { [idx: string]: MoodEnum; } = MoodEnum;
 
 export const moodColors = {
-    [MoodEnum.Beer]: 'hsla(40,100%,51%,0.9)',
-    [MoodEnum.Super]: 'hsla(185,94%,38%,0.9)',
-    [MoodEnum.Happy]: 'hsla(122,74%,68%,0.9)',
-    [MoodEnum.Angry]: 'hsla(355,60%,60%,0.5)',
-    [MoodEnum.Confused]: 'hsla(0,0%,49%,0.5)',
-    [MoodEnum.Sad]: 'hsla(209,59%,34%,0.5)',
+    [MoodEnum.Beer]: 'hsla(48,100%,50%,0.9)',
+    [MoodEnum.Super]: 'hsla(303,100%,50%,0.9)',
+    [MoodEnum.Happy]: 'hsla(122,100%,50%,0.9)',
+    [MoodEnum.Angry]: 'hsla(355,60%,50%,0.5)',
+    [MoodEnum.Confused]: 'hsla(0,0%,50%,0.5)',
+    [MoodEnum.Sad]: 'hsla(209,59%,50%,0.5)',
 }
 
 const initialMoodMap: MoodCounters = {
