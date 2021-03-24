@@ -14,9 +14,11 @@ function MoodChart(props: MoodChartProps) {
         <div>
             <Plot
                 data={[
-                    {type: 'bar', x: xValues, y: yValues, marker: {color:markerColor}},
+                    {type: 'bar', x: xValues, y: yValues, marker: {color: markerColor}},
                 ]}
-                layout={ {width: 800, height: 400, title: "How's the mood today?"} }
+                layout={{
+                    width: 800, height: 400, title: 'How\'s the mood today?',
+                }}
             />
             <pre>{JSON.stringify(props)}</pre>
         </div>)

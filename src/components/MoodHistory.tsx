@@ -1,5 +1,7 @@
 import Plot from 'react-plotly.js';
 import { moodColors, MoodCounters, MoodEnum } from 'app/moodCounterSlice';
+// @ts-ignore
+import locale from 'plotly.js-locales/it';
 
 interface MoodHistoryProps {
     [day: string]: MoodCounters
@@ -35,7 +37,12 @@ function MoodHistory(history: MoodHistoryProps) {
         .map(mood => trace(mood, sortedHistory))
 
     const layout = {
-        xaxis: {title: 'Day'},
+        xaxis: {
+            title: 'Day',
+            tickformat: '%e-%m',
+            ticksuffix: `-${sortedDays?.length && sortedDays[0].substr(0, 4)}`,
+            showticksuffix: 'last'
+        },
         yaxis: {title: 'Mood'},
         barmode: 'relative',
         hovermode: 'x unified',
@@ -45,7 +52,10 @@ function MoodHistory(history: MoodHistoryProps) {
     return (
         <>
             {/*// @ts-ignore*/}
-            <Plot data={traces} layout={layout}/>
+            <Plot data={traces} layout={layout} config={{
+                locales: { 'it': locale }, // This makes the locale available to your plot
+                locale: 'it' // This uses the locale on the plot
+            }}/>
         </>)
 }
 
