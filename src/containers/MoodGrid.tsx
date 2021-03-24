@@ -2,21 +2,37 @@ import React, { useState } from 'react';
 import Mood from 'components/Mood';
 import { makeStyles } from '@material-ui/core/styles';
 import MoodChart from 'components/MoodChart';
-import { decrement, increment, MoodEnum, selectMoodMap } from 'app/moodCounterSlice';
+import { decrement, increment, moodColors, MoodEnum, selectMoodMap } from 'app/moodCounterSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { prepare, selectTimer } from 'app/timerSlice';
 import useLocalUserId from 'hooks/useLocalUserId';
 import MoodHistory from 'components/MoodHistory';
 import { selectHistory } from 'app/fireSlice';
 
+const bgColors = Object.entries(moodColors).reduce(
+    (acc, [mood, color]) => ({...acc, [mood]: {'&:hover': {backgroundColor: color}}}),
+    {}
+);
 const useStyles = makeStyles({
+    ...bgColors,
     mood: {
-        float: 'left',
-        margin: '0.5em 0.2em',
-        cursor: 'pointer',
-        fontSize: '4em'
+        float: 'left', margin: '0.5em 0.2em', cursor: 'pointer', fontSize: '4em',
+    },
+    charts: {
+        display: 'flex', flexWrap: 'wrap', width: '100%', justifyContent: 'space-evenly'
     }
 })
+
+const Timer = ({timer}: { timer: number }) => (
+    <div>{
+        timer <= 0 ?
+            <span style={{color: 'red'}}>You haven't voted yet... maybe</span>
+            : timer < 60 ?
+            <span style={{color: 'orange'}}>You voted about {timer} seconds ago</span>
+            :
+            <span style={{color: 'purple'}}>You voted a long time ago</span>
+    }</div>
+);
 
 function MoodGrid() {
     const moodMap = useSelector(selectMoodMap);
@@ -48,21 +64,16 @@ function MoodGrid() {
     //<> is a nameless tag to call reactFragment, to create a fake root component in order to have a unique root in the tsx
     return (
         <>
-            <div>{
-                timer <= 0 ?
-                    <span style={{color: 'red'}}>You haven't voted yet... maybe</span>
-                    : timer < 60 ?
-                    <span style={{color: 'orange'}}>You voted about {timer} seconds ago</span>
-                    :
-                    <span style={{color: 'purple'}}>You voted a long time ago</span>
-            }</div>
-            <div>
-                {moodMap && Object.keys(moodMap).map(mood =>
-                    <Mood className={classes.mood} text={mood} key={mood}
-                          click={() => clickMood(mood)}/>
-                )}
+            <Timer timer={timer}/>
+            <div>{moodMap && Object.keys(moodMap).map(mood =>
+                // @ts-ignore
+                <Mood className={`${classes.mood} ${classes[mood]}`}
+                      text={mood}
+                      key={mood}
+                      click={() => clickMood(mood)}/>
+            )}
             </div>
-            <div style={{display: 'flex', flexWrap: 'wrap', width: '100%', justifyContent: 'space-evenly'}}>
+            <div className={classes.charts}>
                 <MoodChart {...moodMap}/>
                 <MoodHistory {...history} />
             </div>

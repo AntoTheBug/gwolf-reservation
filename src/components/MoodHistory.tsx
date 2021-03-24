@@ -1,7 +1,7 @@
 import Plot from 'react-plotly.js';
 import { moodColors, MoodCounters, MoodEnum } from 'app/moodCounterSlice';
-// @ts-ignore
-import locale from 'plotly.js-locales/it';
+import 'plotly.js-locales/it';
+import * as Plotly from 'plotly.js';
 
 interface MoodHistoryProps {
     [day: string]: MoodCounters
@@ -10,7 +10,7 @@ interface MoodHistoryProps {
 const moodSign = (mood: string) =>
     [MoodEnum.Happy, MoodEnum.Super, MoodEnum.Beer].indexOf(mood as MoodEnum) >= 0 ? +1 : -1;
 
-const trace = (mood: string, history: { moods: MoodCounters; day: string }[]) => {
+const trace = (mood: string, history: { moods: MoodCounters; day: string }[]): Plotly.Data => {
     const absValues = history.map(date => date.moods[mood] || 0);
     const yValues = absValues.map(v => v * moodSign(mood));
     return ({
@@ -33,10 +33,10 @@ function MoodHistory(history: MoodHistoryProps) {
     const sortedHistory = sortedDays
         .map(day => ({day, moods: history[day]}));
 
-    const traces = Object.keys(moodColors)
+    const traces: Plotly.Data[] = Object.keys(moodColors)
         .map(mood => trace(mood, sortedHistory))
 
-    const layout = {
+    const layout: Partial<Plotly.Layout> = {
         xaxis: {
             title: 'Day',
             tickformat: '%e-%m',
@@ -46,17 +46,12 @@ function MoodHistory(history: MoodHistoryProps) {
         yaxis: {title: 'Mood'},
         barmode: 'relative',
         hovermode: 'x unified',
-        width: 800, height: 400, title: 'How was the mood?'
+        width: 800,
+        height: 400,
+        title: 'How was the mood?'
     };
 
-    return (
-        <>
-            {/*// @ts-ignore*/}
-            <Plot data={traces} layout={layout} config={{
-                locales: { 'it': locale }, // This makes the locale available to your plot
-                locale: 'it' // This uses the locale on the plot
-            }}/>
-        </>)
+    return <Plot data={traces} layout={layout} config={{locale: 'it'}}/>
 }
 
 export default MoodHistory
