@@ -21,6 +21,7 @@
     "plotly.js-locales": "^1.58.4",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
+    "react-intl": "^5.15.5",
     "react-plotly.js": "^2.5.1",
     "react-redux": "^7.2.2",
     "react-scripts": "4.0.3",

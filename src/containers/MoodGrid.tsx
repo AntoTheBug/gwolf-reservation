@@ -8,6 +8,7 @@ import { prepare, selectTimer } from 'app/timerSlice';
 import useLocalUserId from 'hooks/useLocalUserId';
 import MoodHistory from 'components/MoodHistory';
 import { selectHistory } from 'app/fireSlice';
+import { FormattedMessage } from 'react-intl';
 
 const bgColors = Object.entries(moodColors).reduce(
     (acc, [mood, color]) => ({...acc, [mood]: {'&:hover': {backgroundColor: color}}}),
@@ -26,11 +27,18 @@ const useStyles = makeStyles({
 const Timer = ({timer}: { timer: number }) => (
     <div>{
         timer <= 0 ?
-            <span style={{color: 'red'}}>You haven't voted yet... maybe</span>
+            <span style={{color: 'red'}}>
+                <FormattedMessage id='voteNever' defaultMessage="You haven't voted yet... maybe"/>
+            </span>
             : timer < 60 ?
-            <span style={{color: 'orange'}}>You voted about {timer} seconds ago</span>
+            <span style={{color: 'orange'}}>
+                <FormattedMessage id='voteRecent' defaultMessage="You voted about {timer, number} seconds ago"
+                                  values={{timer}}/>
+            </span>
             :
-            <span style={{color: 'purple'}}>You voted a long time ago</span>
+            <span style={{color: 'purple'}}>
+                <FormattedMessage id='votePast' defaultMessage="You voted a long time ago"/>
+            </span>
     }</div>
 );
 

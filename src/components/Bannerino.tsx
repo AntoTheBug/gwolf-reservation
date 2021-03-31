@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-
-function Bannerino(props:any){
-    return(
-        <h2>{props.title}</h2>
-    )
+interface BannerinoProps {
+    title?: string;
+    children?: ReactNode;
 }
+
+const Bannerino = ({title, children}: BannerinoProps) => (
+    <h2>
+        {title} {children}
+    </h2>
+);
 
 export default Bannerino;
