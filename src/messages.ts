@@ -1,6 +1,6 @@
 export const messages: Record<string, Record<string, string>> = {
     it: {
-        welcomeTime: 'Benvenuto, oggi è il {quando, date, ::yyMMMM} e sono le ore {quando, date, ::HHmmss} ',
+        welcomeTime: 'Benvenuto, oggi è il {quando, date, ::MMMMdd} e sono le ore {quando, date, ::HHmmss} ',
         voteNever: 'Credo che tu non abbia ancora votato',
         voteRecent: 'Uhm, hai votato circa {timer, plural, one {un secondo} other {# secondi}} fa',
         votePast: 'Hai già votato da un pezzo'
