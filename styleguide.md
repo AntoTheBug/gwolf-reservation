@@ -1,3 +1,0 @@
-## This is YoGa
-
-Welcome 🧘️
