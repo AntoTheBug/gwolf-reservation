@@ -10,7 +10,7 @@ function App() {
           <header className="App-header">
               <WeekBanner></WeekBanner>
           </header>
-          <body><RegistrationTable></RegistrationTable></body>
+          <RegistrationTable></RegistrationTable>
       </div>
   );
 };
