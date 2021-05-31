@@ -20,8 +20,7 @@ export default function RegistrationTable() {
         setTimeout(
             function() {
                 loadData();
-            }
-                .bind(this),
+            },
             200
         );
     };
