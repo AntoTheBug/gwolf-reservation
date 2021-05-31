@@ -1,5 +1,7 @@
 import React, { useState} from 'react';
 import {Button, FormControl, InputGroup} from "react-bootstrap";
+import {db} from "../index";
+import firebase from "firebase";
 
 export default function Column(props) {
 
@@ -11,12 +13,14 @@ export default function Column(props) {
     };
 
     const register = (day) => {
-       alert(day + " "+ user)
+        db.collection("week").doc(day).update({
+            users: firebase.firestore.FieldValue.arrayUnion(user)
+        });
     };
 
     const handleChange = (e) => {
-        e.preventDefault(); // prevent the default action
-        setUser(e.target.value); // set name to e.target.value (event)
+        e.preventDefault();
+        setUser(e.target.value);
     };
 
     return (
