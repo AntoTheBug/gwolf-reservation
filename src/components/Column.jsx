@@ -43,8 +43,9 @@ export default function Column(props) {
                 <div>
                     {props.content.users.map((user) => (
                         <div className={"col-12"} key={user}>{user}
-                            <span variant="outline-secondary" onClick={() => removeUser(props.content.day, user)}><i
-                                className="fas fa-trash"></i></span>
+                            <span variant="outline-secondary" onClick={() => removeUser(props.content.day, user)}>
+                                <i className="fas fa-trash"></i>
+                            </span>
                         </div>
                         ))}
                 </div>}
