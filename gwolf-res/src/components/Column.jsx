@@ -39,10 +39,10 @@ export default function Column(props) {
                 {props.content && props.content.users &&
                 <div>
                     {props.content.users.map((user) => (
-                        <>
-                        <div className={"col-6"} key={user}>{user}</div>
-                        <Button variant="outline-secondary" onClick={() => removeUser(props.content.day, user)}>-</Button>
-                        </>
+                        <div className={"col-12"} key={user}>{user}
+                            <span variant="outline-secondary" onClick={() => removeUser(props.content.day, user)}><i
+                                className="fas fa-trash"></i></span>
+                        </div>
                         ))}
                 </div>}
             </div>}
