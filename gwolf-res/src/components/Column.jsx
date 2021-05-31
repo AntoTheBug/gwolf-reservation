@@ -7,6 +7,7 @@ export default function Column(props) {
 
     const [visibleUsers, setVisibleUsers] = useState(false);
     const [user, setUser] = useState("");
+    const updateData = props.callBack
 
     const showUsers = () => {
         setVisibleUsers(!visibleUsers)
@@ -16,12 +17,14 @@ export default function Column(props) {
         db.collection("week").doc(day).update({
             users: firebase.firestore.FieldValue.arrayUnion(user)
         });
+        updateData();
     };
 
     const removeUser = (day, userToRemove) => {
         db.collection("week").doc(day).update({
             users: firebase.firestore.FieldValue.arrayRemove(userToRemove)
         });
+        updateData();
     };
 
     const handleChange = (e) => {

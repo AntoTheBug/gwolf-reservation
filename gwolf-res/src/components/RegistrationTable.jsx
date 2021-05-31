@@ -16,13 +16,12 @@ export default function RegistrationTable() {
     };
     useEffect(()=>{loadData()},[])
 
-
     return (
         <>
         <div className="container">
             {days.sort((a,b) => a.order - b.order)
                 .map((d) => (
-                <Column key={d.day} content={d}/>
+                <Column key={d.day} content={d} callBack={loadData}/>
             ))}
         </div>
         </>
