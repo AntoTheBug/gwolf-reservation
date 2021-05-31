@@ -26,13 +26,11 @@ export default function RegistrationTable() {
     };
 
     return (
-        <>
         <div className="container">
             {days.sort((a,b) => a.order - b.order)
                 .map((d) => (
                 <Column key={d.day} content={d} callBack={updateData}/>
             ))}
         </div>
-        </>
     );
 };

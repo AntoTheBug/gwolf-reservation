@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  background-color: ghostwhite;
+  height: auto;
+  padding-bottom: 30px;
 }
 
 .App-logo {
@@ -24,6 +27,21 @@
 }
 
 .gw-row {
+  padding: 5px;
+  margin: auto;
+}
+
+.gw-card {
   border: 1px solid black;
-  margin: 5px 0px 5px 0px;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: white;
+}
+.gw-input{
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.gw-space{
+  padding: 5px;
 }

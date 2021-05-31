@@ -33,24 +33,14 @@ export default function Column(props) {
     };
 
     return (
-        <>
+        <div className={"gw-card"}>
             <div className={"row gw-row"} onClick={() => showUsers()}>
                 <div className={"col-2"}>{props.content.day}</div>
                 <div className={"col-8"}>{props.content.type}</div>
             </div>
-            {visibleUsers && <div className={"row"}>
-                {props.content && props.content.users &&
-                <div>
-                    {props.content.users.map((user) => (
-                        <div className={"col-12"} key={user}>{user}
-                            <span variant="outline-secondary" onClick={() => removeUser(props.content.day, user)}>
-                                <i className="fas fa-trash"></i>
-                            </span>
-                        </div>
-                        ))}
-                </div>}
-            </div>}
-            <InputGroup className="mb-3">
+            {visibleUsers &&
+            <>
+            <InputGroup className="mb-3 gw-input">
                 <FormControl
                     placeholder="Nome"
                     aria-label="Name"
@@ -62,6 +52,18 @@ export default function Column(props) {
                     <Button variant="outline-secondary" onClick={() => addUser(props.content.day)}>Registrati</Button>
                 </InputGroup.Append>
             </InputGroup>
-        </>
+            <div className={"row gw-border"}>
+                {props.content && props.content.users && props.content.users.map((user, index) => (
+                        <div className={"col-6 gw-space"} key={user}>
+                            <span className={"col-5"}>{index+1} - {user}</span>
+                            <span className={"col-1"} variant="outline-secondary" onClick={() => removeUser(props.content.day, user)}>
+                                <i className="fas fa-trash"></i>
+                            </span>
+                        </div>
+                    ))
+                }
+            </div>
+            </>}
+        </div>
     );
 };
