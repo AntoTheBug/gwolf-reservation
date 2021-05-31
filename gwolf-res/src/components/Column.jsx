@@ -4,13 +4,19 @@ import {Button, FormControl, InputGroup} from "react-bootstrap";
 export default function Column(props) {
 
     const [visibleUsers, setVisibleUsers] = useState(false);
+    const [user, setUser] = useState("");
 
     const showUsers = () => {
         setVisibleUsers(!visibleUsers)
     };
 
     const register = (day) => {
-       alert(day)
+       alert(day + " "+ user)
+    };
+
+    const handleChange = (e) => {
+        e.preventDefault(); // prevent the default action
+        setUser(e.target.value); // set name to e.target.value (event)
     };
 
     return (
@@ -32,6 +38,8 @@ export default function Column(props) {
                     placeholder="Nome"
                     aria-label="Name"
                     aria-describedby="basic-addon2"
+                    value={user}
+                    onChange={handleChange}
                 />
                 <InputGroup.Append>
                     <Button variant="outline-secondary" onClick={() => register(props.content.day)}>Registrati</Button>
