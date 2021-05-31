@@ -1,5 +1,5 @@
 import React, { useState} from 'react';
-import {Button} from "react-bootstrap";
+import {Button, FormControl, InputGroup} from "react-bootstrap";
 
 export default function Column(props) {
 
@@ -27,7 +27,16 @@ export default function Column(props) {
                         ))}
                 </div>}
             </div>}
-            <Button onClick={() => register(props.content.day)}>Registrati</Button>
+            <InputGroup className="mb-3">
+                <FormControl
+                    placeholder="Nome"
+                    aria-label="Name"
+                    aria-describedby="basic-addon2"
+                />
+                <InputGroup.Append>
+                    <Button variant="outline-secondary" onClick={() => register(props.content.day)}>Registrati</Button>
+                </InputGroup.Append>
+            </InputGroup>
         </>
     );
 };
