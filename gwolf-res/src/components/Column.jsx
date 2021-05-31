@@ -12,9 +12,15 @@ export default function Column(props) {
         setVisibleUsers(!visibleUsers)
     };
 
-    const register = (day) => {
+    const addUser = (day) => {
         db.collection("week").doc(day).update({
             users: firebase.firestore.FieldValue.arrayUnion(user)
+        });
+    };
+
+    const removeUser = (day, userToRemove) => {
+        db.collection("week").doc(day).update({
+            users: firebase.firestore.FieldValue.arrayRemove(userToRemove)
         });
     };
 
@@ -33,7 +39,10 @@ export default function Column(props) {
                 {props.content && props.content.users &&
                 <div>
                     {props.content.users.map((user) => (
+                        <>
                         <div className={"col-6"} key={user}>{user}</div>
+                        <Button variant="outline-secondary" onClick={() => removeUser(props.content.day, user)}>-</Button>
+                        </>
                         ))}
                 </div>}
             </div>}
@@ -46,7 +55,7 @@ export default function Column(props) {
                     onChange={handleChange}
                 />
                 <InputGroup.Append>
-                    <Button variant="outline-secondary" onClick={() => register(props.content.day)}>Registrati</Button>
+                    <Button variant="outline-secondary" onClick={() => addUser(props.content.day)}>Registrati</Button>
                 </InputGroup.Append>
             </InputGroup>
         </>
