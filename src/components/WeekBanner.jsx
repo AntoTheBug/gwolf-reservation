@@ -8,7 +8,7 @@ function WeekBanner() {
 
     return (
         <div>
-            <h1>Allenamenti Gray Wolf</h1>
+            <h2>Allenamenti Gray Wolf</h2>
             <h4>{firstDay.toLocaleDateString("it-IT")} - {lastDay.toLocaleDateString("it-IT")}</h4>
         </div>
 
