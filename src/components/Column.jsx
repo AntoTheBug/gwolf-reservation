@@ -2,6 +2,7 @@ import React, { useState} from 'react';
 import {Button, FormControl, InputGroup} from "react-bootstrap";
 import {db} from "../index";
 import firebase from "firebase";
+import swal from 'sweetalert';
 
 export default function Column(props) {
 
@@ -11,13 +12,19 @@ export default function Column(props) {
 
     const showUsers = () => {
         setVisibleUsers(!visibleUsers)
+        updateData();
     };
 
-    const addUser = (day) => {
-        db.collection("week").doc(day).update({
-            users: firebase.firestore.FieldValue.arrayUnion(user)
-        });
-        updateData();
+    const addUser = (day, users) => {
+        console.log(users)
+        if(users.length >= 10){
+            swal("Ci sono già 10 iscritti!");
+        }else{
+            db.collection("week").doc(day).update({
+                users: firebase.firestore.FieldValue.arrayUnion(user)
+            });
+            updateData();
+        }
     };
 
     const removeUser = (day, userToRemove) => {
@@ -49,7 +56,7 @@ export default function Column(props) {
                     onChange={handleChange}
                 />
                 <InputGroup.Append>
-                    <Button variant="outline-secondary" onClick={() => addUser(props.content.day)}>Registrati</Button>
+                    <Button variant="outline-secondary" onClick={() => addUser(props.content.day, props.content.users)}>Registrati</Button>
                 </InputGroup.Append>
             </InputGroup>
             <div className={"row gw-border"}>
