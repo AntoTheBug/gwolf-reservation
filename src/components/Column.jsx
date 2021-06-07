@@ -17,8 +17,8 @@ export default function Column(props) {
 
     const addUser = (day, users) => {
         console.log(users)
-        if(users.length >= 10){
-            swal("Ci sono già 10 iscritti!");
+        if(users.length >= 15){
+            swal("Ci sono già 15 iscritti!");
         }else{
             db.collection("week").doc(day).update({
                 users: firebase.firestore.FieldValue.arrayUnion(user)
