@@ -1,7 +1,8 @@
 .App {
   text-align: center;
   background-color: ghostwhite;
-  height: auto;
+  width: 100%;
+  height: calc(100vh);
   padding-bottom: 30px;
 }
 
@@ -27,7 +28,7 @@
 }
 
 .gw-row {
-  padding: 5px;
+  padding: 15px;
   margin: auto;
 }
 
