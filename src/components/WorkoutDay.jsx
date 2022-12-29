@@ -30,8 +30,8 @@ export default function WorkoutDay() {
     };
 
     return (
-        <div className="container">
-            <h2>{state.day}</h2>
+        <div className="container mt-2">
+            <h4 className={"font-weight-bold"}>{state.day}</h4>
             {workouts.sort((a,b) => a.order - b.order)
                 .map((d) => (
                     <RegistrationCard key={id} content={d} day={id} callBack={updateData}/>

@@ -8,6 +8,11 @@
     grid-template-columns: calc(50% - 8px) calc(50% - 8px);
 }
 
+a:hover {
+    text-decoration: none;
+    color: white;
+}
+
 .previousBtn {
     cursor: pointer;
     -moz-box-align: center;

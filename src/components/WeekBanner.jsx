@@ -7,8 +7,8 @@ function WeekBanner() {
     const lastDay = new Date(curr.setDate(curr.getDate() - curr.getDay()+7));
 
     return (
-        <div>
-            <h4>{firstDay.toLocaleDateString("it-IT")} - {lastDay.toLocaleDateString("it-IT")}</h4>
+        <div className="mt-2">
+            <h4 className={"font-weight-bold"}>{firstDay.toLocaleDateString("it-IT")} - {lastDay.toLocaleDateString("it-IT")}</h4>
         </div>
 
     );
