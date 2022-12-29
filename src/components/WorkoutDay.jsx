@@ -29,6 +29,10 @@ export default function WorkoutDay() {
         );
     };
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
     return (
         <div className="container mt-2">
             <h4 className={"font-weight-bold"}>{state.day}</h4>
