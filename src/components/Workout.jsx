@@ -10,7 +10,7 @@ export default function Workout() {
                 <b>OCR Kids</b>
             </div>
             <div className="previousBtn">
-                <b>Tecnica OCR</b>
+                <b>OCR Tecnica</b>
             </div>
             <div className="previousBtn">
                 <b>OCR Training</b>
