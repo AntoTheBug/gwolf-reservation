@@ -3,7 +3,24 @@ import React from "react";
 export default function Workout() {
     return (
         <div>
-            <h1>Workout</h1>
+            <div className="previousBtn">
+                <b>Spartan</b>
+            </div>
+            <div className="previousBtn">
+                <b>OCR Kids</b>
+            </div>
+            <div className="previousBtn">
+                <b>Tecnica OCR</b>
+            </div>
+            <div className="previousBtn">
+                <b>OCR Training</b>
+            </div>
+            <div className="previousBtn">
+                <b>OCR Mom and Dad</b>
+            </div>
+            <div className="previousBtn">
+                <b>OCR</b>
+            </div>
         </div>
     );
 };
