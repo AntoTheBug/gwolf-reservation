@@ -1,9 +1,22 @@
 .App {
   text-align: center;
-  background-color: ghostwhite;
   width: 100%;
   height: calc(130vh);
   padding-bottom: 30px;
+}
+
+.dark {
+  background-color: #333;
+  color: ghostwhite;
+}
+.light {
+  background-color: ghostwhite;
+  color: #333;
+}
+
+.darkMode{
+  text-align: right;
+  margin-right: 20px;
 }
 
 .App-logo {
