@@ -17,7 +17,7 @@ export default function Home() {
                         <b>Gli allenamenti all'Obstacles Village</b>
                     </div>
                 </Link>
-                <a href="https://docs.google.com/spreadsheets/d/1S5hz9q3el55AkDKLGKXX3d9l1k-bJBC8C_6ExUzfDyU/edit?usp=sharing" target="_blank">
+                <a href="https://docs.google.com/spreadsheets/d/1_XehypzEqMKrUbKF4AzXoJokcDvj5aAIrpys51mH28E" target="_blank">
                     <div className="previousBtn">
                         <b>Calendario gare</b>
                     </div>

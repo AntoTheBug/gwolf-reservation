@@ -29,7 +29,8 @@ a:hover {
     box-shadow: 0 3px 8px 0 rgb(116 129 141 / 10%);
     text-decoration: none;
     margin: 20px;
-    height: 80px;
+    min-height: 80px;
+    padding: 6px;
 }
 
 @media screen and (max-width: 767px) {
