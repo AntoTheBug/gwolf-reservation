@@ -25,7 +25,7 @@ export default function Workout() {
             </div>
             <div className="previousBtn">
                 <b>OCR</b>
-                <p>Allenamento Funzionale e tecnico, dedicato a coloro che sono al primo approccio con il mondo OCR e Spartan</p>
+                <p>Allenamento outdoor a 360 gradi che parte dall’esigenze delle singole persone, neofiti che desiderano trovare benessere attraverso questa nuova disciplina o atleti, che vogliono raggiungere traguardi sportivi e personali</p>
             </div>
         </div>
     );
