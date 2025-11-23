@@ -1,0 +1,171 @@
+.admin-container {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.admin-title {
+    margin-bottom: 30px;
+    color: #282c34;
+}
+
+.dark .admin-title {
+    color: ghostwhite;
+}
+
+.admin-content {
+    display: flex;
+    gap: 20px;
+    min-height: 500px;
+}
+
+.admin-sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    background-color: white;
+    border-radius: 0.5rem;
+    border: 1px solid #e6ecf1;
+    padding: 20px;
+    box-shadow: 0 3px 8px 0 rgb(116 129 141 / 10%);
+}
+
+.dark .admin-sidebar {
+    background-color: #444;
+    border-color: #555;
+}
+
+.admin-sidebar h4 {
+    margin-bottom: 15px;
+    color: #282c34;
+}
+
+.dark .admin-sidebar h4 {
+    color: ghostwhite;
+}
+
+.day-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.day-item {
+    padding: 12px;
+    border-radius: 0.5rem;
+    border: 1px solid #e6ecf1;
+    cursor: pointer;
+    transition: all 0.2s;
+    background-color: #f8f9fa;
+    color: #282c34;
+}
+
+.dark .day-item {
+    background-color: #555;
+    border-color: #666;
+    color: ghostwhite;
+}
+
+.day-item:hover {
+    background-color: #e9ecef;
+    border-color: #007bff;
+}
+
+.dark .day-item:hover {
+    background-color: #666;
+}
+
+.day-item.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.admin-main {
+    flex: 1;
+    background-color: white;
+    border-radius: 0.5rem;
+    border: 1px solid #e6ecf1;
+    padding: 20px;
+    box-shadow: 0 3px 8px 0 rgb(116 129 141 / 10%);
+}
+
+.dark .admin-main {
+    background-color: #444;
+    border-color: #555;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.admin-header h3 {
+    margin: 0;
+    color: #282c34;
+}
+
+.dark .admin-header h3 {
+    color: ghostwhite;
+}
+
+.workout-table {
+    margin-top: 20px;
+}
+
+.dark .workout-table {
+    color: ghostwhite;
+}
+
+.dark .workout-table thead {
+    background-color: #555;
+}
+
+.dark .workout-table tbody {
+    background-color: #444;
+}
+
+.no-workouts,
+.no-selection {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6c757d;
+}
+
+.dark .no-workouts,
+.dark .no-selection {
+    color: #aaa;
+}
+
+.no-workouts p,
+.no-selection p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    .admin-content {
+        flex-direction: column;
+    }
+
+    .admin-sidebar {
+        width: 100%;
+    }
+
+    .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .workout-table {
+        font-size: 14px;
+    }
+
+    .workout-table th,
+    .workout-table td {
+        padding: 8px;
+    }
+}
+

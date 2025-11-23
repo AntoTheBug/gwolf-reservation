@@ -6,6 +6,7 @@ import Week from "./components/Week";
 import NavBar from "./components/NavBar";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import WorkoutDay from "./components/WorkoutDay";
+import Admin from "./components/Admin";
 import darkMode from "./images/dark.png";
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
                       <Route path="/week" element={<Week />}  />
                       <Route path="/workout" element={<Workout />}  />
                       <Route path="/day/:id" element={<WorkoutDay />}  />
+                      <Route path="/admin" element={<Admin />}  />
                   </Routes>
               </div>
           </Router>

@@ -1,70 +1,121 @@
-# Getting Started with Create React App
+# Obstacles Village - Sistema di Prenotazione
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Applicazione React per la gestione delle prenotazioni degli allenamenti all'Obstacles Village.
 
-## Available Scripts
+## Branch v3
 
-In the project directory, you can run:
+Questo branch mantiene la retrocompatibilità con Firebase e aggiunge un pannello amministratore per gestire gli allenamenti.
 
-### `yarn start`
+## Struttura del Progetto
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Frontend**: React app (porta 3000)
+- **Backend**: Firebase Firestore
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Installazione
 
-### `yarn test`
+```bash
+npm install
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Avvio del Progetto
 
-### `yarn build`
+```bash
+npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+L'applicazione si avvia su `http://localhost:3000`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Funzionalità
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Utenti
+- **Home**: Pagina principale con link alle varie sezioni
+- **La settimana**: Visualizzazione dei giorni della settimana con prenotazioni
+- **Gli allenamenti**: Descrizione dei vari tipi di allenamento
+- **Prenotazione**: Iscrizione agli allenamenti
 
-### `yarn eject`
+### Amministratore
+- **Admin** (`/admin`): Pannello amministratore per gestire gli allenamenti
+  - Visualizza giorni della settimana
+  - Crea nuovi allenamenti
+  - Modifica allenamenti esistenti (descrizione, orario, ordine)
+  - Elimina allenamenti
+  - Visualizza numero iscritti per ogni allenamento
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Struttura Firebase
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Collezione `workout-week`
+```
+workout-week/
+  {dayId}/
+    day: "Lunedì"
+    order: 0
+    url: "lunedi"
+    workouts/
+      {workoutId}/
+        description: "OCR Training"
+        time: "18:00 - 19:30"
+        order: 0
+        users: ["Mario", "Luigi"]
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Collezione `week` (vecchia, per compatibilità)
+```
+week/
+  {dayId}/
+    day: "Lunedì"
+    type: "Allenamento"
+    order: 0
+    users: ["Mario", "Luigi"]
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Inizializzazione Dati Firebase
 
-## Learn More
+Se il database è vuoto, puoi creare i giorni della settimana manualmente su Firebase Console o usando questo script:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Giorni della settimana da creare:
+```javascript
+// Collezione: workout-week
+{
+  "lunedi": {
+    day: "Lunedì",
+    order: 0,
+    url: "lunedi"
+  },
+  "martedi": {
+    day: "Martedì",
+    order: 1,
+    url: "martedi"
+  },
+  "mercoledi": {
+    day: "Mercoledì",
+    order: 2,
+    url: "mercoledi"
+  },
+  "giovedi": {
+    day: "Giovedì",
+    order: 3,
+    url: "giovedi"
+  },
+  "venerdi": {
+    day: "Venerdì",
+    order: 4,
+    url: "venerdi"
+  },
+  "sabato": {
+    day: "Sabato",
+    order: 5,
+    url: "sabato"
+  },
+  "domenica": {
+    day: "Domenica",
+    order: 6,
+    url: "domenica"
+  }
+}
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Note
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Il pannello admin è accessibile direttamente all'URL `/admin`
+- Gli allenamenti vengono salvati automaticamente su Firebase
+- Per produzione, considera di aggiungere autenticazione per proteggere `/admin`
